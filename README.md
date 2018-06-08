@@ -26,6 +26,13 @@ How to use:
     ```Python 
     username = ""
     ```
+5. Prepare using:
+    ```Bash
+    git clone https://github.com/oddProton/DynamicPaper.git
+    mkdir -p ~/Pictures/Wallpapers/mojave_dynamic
+    mv ./mojave_dynamic.zip ~/Pictures/Wallpapers/mojave_dynamic/
+    unzip ~/Pictures/mojave_dynamic/mojave_dynamic.zip -d ~/Pictures/mojave_dynamic/
+    ```
 4. Run using:  
     ```Bash
     python3 ./dynamic_wallpapers.py&
