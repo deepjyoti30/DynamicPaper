@@ -5,11 +5,12 @@ The project is currently WIP and works only in Gnome based environments as of ri
 
 Progress:
 
-- [x] Write initial program that does the job using Mojave's wallpapers
+- [x] Write initial program that does the job using Mojave's wallpapers.
+- [ ] Close subprocess (As of right now it becomes defunct).
 - [ ] Add configuration file to load from that.
 - [ ] Add arguments and reduce hardcoded variables.
 - [ ] Add support for additional WM | environments.
-- [ ] Replace geolocation api
+- [ ] Replace geolocation api.
 
 Current Issue(s):
 - Uses IP to find time and geolocation.
@@ -26,14 +27,16 @@ How to use:
     ```Python 
     username = ""
     ```
+4. Download the wallpapers at: 
 5. Prepare using:
     ```Bash
     git clone https://github.com/oddProton/DynamicPaper.git
     mkdir -p ~/Pictures/Wallpapers/mojave_dynamic
     mv ./mojave_dynamic.zip ~/Pictures/Wallpapers/mojave_dynamic/
     unzip ~/Pictures/mojave_dynamic/mojave_dynamic.zip -d ~/Pictures/mojave_dynamic/
+    cd DynamicPaper
     ```
-4. Run using:  
+6. Run using:  
     ```Bash
     python3 ./dynamic_wallpapers.py&
     disown
