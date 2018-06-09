@@ -27,7 +27,7 @@ How to use:
     ```Python 
     username = ""
     ```
-4. Download the wallpapers at: 
+4. Download the wallpapers at: https://mega.nz/#!S6wREBpA
 5. Prepare using:
     ```Bash
     git clone https://github.com/oddProton/DynamicPaper.git
