@@ -13,23 +13,28 @@ import time
 getTime = lambda : getAll()["time"]
 username = ""
 def getAll():
-    send_url = 'http://freegeoip.net/json'
-    r = requests.get(send_url)
-    j = json.loads(r.text)
-    lat = j['latitude']
-    lon = j['longitude']
+    try:
+        send_url = 'http://freegeoip.net/json'
+        r = requests.get(send_url)
+        j = json.loads(r.text)
+        lat = j['latitude']
+        lon = j['longitude']
 
-    time_url = "http://api.geonames.org/timezoneJSON?formatted=true&lat={}&lng={}&username={}".format(lat,lon,username)
-    time_info  = requests.get(time_url).json() ## Make a request
+        time_url = "http://api.geonames.org/timezoneJSON?formatted=true&lat={}&lng={}&username={}".format(lat,lon,username)
+        time_info  = requests.get(time_url).json() ## Make a request
+        dawn_time = time_info["sunrise"].split(" ")[1].split(":")
+        dawn_time = int(dawn_time[0]) + int(dawn_time[1])/60.0
+        dusk_time = time_info["sunset"].split(" ")[1].split(":")
+        dusk_time = int(dusk_time[0]) + int(dusk_time[1])/60.0
 
-    dawn_time = time_info["sunrise"].split(" ")[1].split(":")
-    dawn_time = int(dawn_time[0]) + int(dawn_time[1])/60.0
-    dusk_time = time_info["sunset"].split(" ")[1].split(":")
-    dusk_time = int(dusk_time[0]) + int(dusk_time[1])/60.0
+        current_time = time_info['time'].split(" ")[1].split(":")
+        current_time = int(current_time[0])+ int(current_time[1])/60.0
+        return {"dawn":dawn_time,"dusk":dusk_time,"time":current_time}
 
-    current_time = time_info['time'].split(" ")[1].split(":")
-    current_time = int(current_time[0])+ int(current_time[1])/60.0
-    return {"dawn":dawn_time,"dusk":dusk_time,"time":current_time}
+    except:
+        time.sleep(60)
+        return getAll()
+
 
 
 order = [i for i in range(1,17)]
@@ -64,4 +69,5 @@ while True:
     current_time = getTime()
     while index == getIndex(current_time):
         time.sleep(60)
-        current_time = getTime()
+        current_time = current_time + 1/60.0
+    index = getIndex(current_time)
