@@ -17,7 +17,7 @@ Progress:
 
 Current Issue(s):
 - Uses IP to find time and geolocation.
-- Currently works only in Gnome and derivatives.
+- Currently works only in Gnome derivatives and with Nitrogen.
 - Uses GeoNames api, requires account but is free.
 
 
