@@ -2,9 +2,9 @@
 
 ## Dynamic, time based wallpapers inspired by Mac OS Mojave for Linux
 
-## The project is currently WIP and works only in Gnome based environments as of right now.
+## The project is currently WIP.
 
-### Currently Works with nitrogen and on Gnome
+## Currently Works with nitrogen and on Gnome
 
 Progress:
 
