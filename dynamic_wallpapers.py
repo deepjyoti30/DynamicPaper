@@ -8,10 +8,29 @@ import json
 import subprocess
 import threading
 import time
+import configure
+
+#--------------wall setter---------------------
+
+wallSetters = {'nitrogen': 'nitrogen',
+               'GNOME': 'GNOME_USER_DEFINE_THIS',
+              }
+
+# Get the wallpaper setter defined by the user in config
+
+USER_DEFINED_SETTER = configure.get('PAPER_SETTER')
+
+#------------------setup config file ----------
+
+if not configure.isPresent():
+    configure.copyConfig()
+
+#----------------------------------------------
 
 
 getTime = lambda : getAll()["time"]
-username = ""
+username = configure.get('USERNAME')
+
 def getAll():
     try:
         send_url = 'http://freegeoip.net/json'
@@ -63,9 +82,13 @@ index = getIndex(current_time)
 
 
 while True:
-    subprocess.Popen("DISPLAY=:0 GSETTINGS_BACKEND=dconf /usr/bin/gsettings \
-    set org.gnome.desktop.background picture-uri file://{}"
-    .format(template_call.format(index)), shell=True)
+    if USER_DEFINED_SETTER == wallSetters['nitrogen']:
+        # Exec nitrogen to set the wallpaper
+        pass
+    elif USER_DEFINED_SETTER == wallSetters['GNOME']:
+        subprocess.Popen("DISPLAY=:0 GSETTINGS_BACKEND=dconf /usr/bin/gsettings \
+        set org.gnome.desktop.background picture-uri file://{}"
+        .format(template_call.format(index)), shell=True)
     current_time = getTime()
     while index == getIndex(current_time):
         time.sleep(60)
