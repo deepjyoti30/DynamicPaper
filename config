@@ -1,6 +1,16 @@
-#*****Add some nice lines about this file here*****
+#*****Config file of Dynamic Wallpaper***********
+# The hash in the beginnig will be considered a comment
+# Dont leave any line blank. If you want an empty line
+# add a hash in front of it
+#*************************************************
+#
+# PAPER_SETTER is the tool that you use to set Wallpapers
+# Currently supports nitrogen and GNOME
+# Change accordingly
 PAPER_SETTER = nitrogen
 #
-#
+# USERNAME is the username of your geoname account.
+# For more info on it check the github repo
+# ** DON'T FORGET TO ENABLE FREE API FEATURES **
 #
 USERNAME = put_username_here

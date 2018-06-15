@@ -38,7 +38,7 @@ if len(sys.argv) == 2:
 #--------------wall setter---------------------
 
 wallSetters = {'nitrogen': 'nitrogen',
-               'GNOME': 'GNOME_USER_DEFINE_THIS',
+               'GNOME': 'GNOME',
               }
 
 # Get the wallpaper setter defined by the user in config
@@ -108,6 +108,9 @@ while True:
         subprocess.Popen("DISPLAY=:0 GSETTINGS_BACKEND=dconf /usr/bin/gsettings \
         set org.gnome.desktop.background picture-uri file://{}"
         .format(template_call.format(index)), shell=True)
+    else:
+        print(USER_DEFINED_SETTER + ' is not supported yet. Sorry!')
+        sys.exit(1)
     current_time = getTime()
     while index == getIndex(current_time):
         time.sleep(60)
