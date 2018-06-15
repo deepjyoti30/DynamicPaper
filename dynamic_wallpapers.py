@@ -11,6 +11,30 @@ import time
 import sys
 import configure
 
+#------------------setup config file ----------
+
+def setup():
+    # This should run when the user runs python dynamicpaper -setup
+
+    if not configure.isPresent():
+        # If its not already present, abort execution and ask the user to update the config
+        configure.copyConfig()
+        print('Please update the config in ' + configure.PATHS.CONFIG_PATH)
+        sys.exit(1)
+#----------------------------------------------
+
+# Check if -setup was passed
+
+if len(sys.argv) == 2:
+    if sys.argv[1] != '-setup':
+        print('Unknown arguement\a')
+        sys.exit(1)
+    elif sys.argv[1] == '-setup':
+        setup()
+    else:
+        # Continue exec
+        pass
+
 #--------------wall setter---------------------
 
 wallSetters = {'nitrogen': 'nitrogen',
@@ -20,15 +44,6 @@ wallSetters = {'nitrogen': 'nitrogen',
 # Get the wallpaper setter defined by the user in config
 
 USER_DEFINED_SETTER = configure.get('PAPER_SETTER')
-
-#------------------setup config file ----------
-
-if not configure.isPresent():
-    # If its not already present, abort execution and ask the user to update the config
-    configure.copyConfig()
-    print('Please update the config in ' + configure.PATHS.CONFIG_PATH)
-    sys.exit(1)
-#----------------------------------------------
 
 username = configure.get('USERNAME')
 
