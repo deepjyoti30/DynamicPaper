@@ -1,7 +1,7 @@
 
 
 
-template_call = "$HOME/Downloads/mojave/mojave_dynamic_{}.png"
+template_call = "mojave/mojave_dynamic_{}.jpeg"
 
 import requests
 import json
@@ -31,6 +31,7 @@ if not configure.isPresent():
 #----------------------------------------------
 
 username = configure.get('USERNAME')
+
 getTime = lambda : getAll()["time"]
 
 def getAll():
@@ -57,7 +58,6 @@ def getAll():
         return getAll()
 
 
-
 order = [i for i in range(1,17)]
 
 time_nfo = getAll()
@@ -67,6 +67,7 @@ current_time = time_nfo["time"]
 
 day_dur = dusk_time-dawn_time
 night_duration = 24.0 - day_dur
+
 
 def getIndex(current_time):
     if dawn_time+day_dur >= current_time and current_time >= dawn_time :
@@ -86,8 +87,8 @@ index = getIndex(current_time)
 while True:
     if USER_DEFINED_SETTER == wallSetters['nitrogen']:
         # Exec nitrogen to set the wallpaper
-        print(template_call.format(index))
-        break
+        wall = template_call.format(index)
+        proc = subprocess.call(['nitrogen', '--set-auto', wall])
     elif USER_DEFINED_SETTER == wallSetters['GNOME']:
         subprocess.Popen("DISPLAY=:0 GSETTINGS_BACKEND=dconf /usr/bin/gsettings \
         set org.gnome.desktop.background picture-uri file://{}"

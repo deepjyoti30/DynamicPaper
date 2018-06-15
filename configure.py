@@ -61,7 +61,11 @@ def get(keyword):
                 # remove the spaces
                 line = line.replace(' ', '')
                 posEqual = line.index('=')
-
+                
+                # Check if \n is present at the end
+                if "\n" == line[len(line) - 1]:
+                    line = line[:-1]
+                
                 return line[posEqual + 1:]
     else:
         return False
