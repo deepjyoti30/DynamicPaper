@@ -8,6 +8,7 @@ import json
 import subprocess
 import threading
 import time
+import sys
 import configure
 
 #--------------wall setter---------------------
@@ -23,8 +24,10 @@ USER_DEFINED_SETTER = configure.get('PAPER_SETTER')
 #------------------setup config file ----------
 
 if not configure.isPresent():
+    # If its not already not present, abort execution and ask the user to update the config
     configure.copyConfig()
-
+    print('Please update the config in ' + configure.PATHS.CONFIG_PATH)
+    sys.exit(1)
 #----------------------------------------------
 
 
