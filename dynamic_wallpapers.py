@@ -1,8 +1,5 @@
 
 
-
-template_call = "mojave/mojave_dynamic_{}.jpeg"
-
 import requests
 import json
 import subprocess
@@ -10,6 +7,8 @@ import threading
 import time
 import sys
 import configure
+
+template_call = "$HOME/DynamicPaper/mojave/mojave_dynamic_{}.jpeg"
 
 #------------define geonames errors--------------
 SERVICE_NOT_ENABLED = 'user account not enabled to use the free webservice. Please enable it on your account page: http://www.geonames.org/manageaccount '
@@ -109,14 +108,14 @@ def getIndex(current_time):
 index = getIndex(current_time)
 
 while True:
+    wall = template_call.format(index)
     if USER_DEFINED_SETTER == wallSetters['nitrogen']:
         # Exec nitrogen to set the wallpaper
-        wall = template_call.format(index)
-        proc = subprocess.call(['nitrogen', '--set-auto', wall])
+        subprocess.Popen("nitrogen --set-auto {}".format(wall), shell=True)
     elif USER_DEFINED_SETTER == wallSetters['GNOME']:
         subprocess.Popen("DISPLAY=:0 GSETTINGS_BACKEND=dconf /usr/bin/gsettings \
         set org.gnome.desktop.background picture-uri file://{}"
-        .format(template_call.format(index)), shell=True)
+        .format(wall), shell=True)
     else:
         print(USER_DEFINED_SETTER + ' is not supported yet. Sorry!')
         sys.exit(1)
