@@ -25,6 +25,7 @@ if len(sys.argv) == 2:
         sys.exit(1)
     elif sys.argv[1] == '-setup':
         configure.setup()
+        sys.exit(1)
     else:
         # Continue exec
         pass
@@ -107,23 +108,20 @@ def getIndex(current_time):
 
 index = getIndex(current_time)
 
-def main():
-    while True:
-        if USER_DEFINED_SETTER == wallSetters['nitrogen']:
-            # Exec nitrogen to set the wallpaper
-            wall = template_call.format(index)
-            proc = subprocess.call(['nitrogen', '--set-auto', wall])
-        elif USER_DEFINED_SETTER == wallSetters['GNOME']:
-            subprocess.Popen("DISPLAY=:0 GSETTINGS_BACKEND=dconf /usr/bin/gsettings \
-            set org.gnome.desktop.background picture-uri file://{}"
-            .format(template_call.format(index)), shell=True)
-        else:
-            print(USER_DEFINED_SETTER + ' is not supported yet. Sorry!')
-            sys.exit(1)
-        current_time = getTime()
-        while index == getIndex(current_time):
-            time.sleep(60)
-            current_time = current_time + 1/60.0
-        index = getIndex(current_time)
-    
-main()
+while True:
+    if USER_DEFINED_SETTER == wallSetters['nitrogen']:
+        # Exec nitrogen to set the wallpaper
+        wall = template_call.format(index)
+        proc = subprocess.call(['nitrogen', '--set-auto', wall])
+    elif USER_DEFINED_SETTER == wallSetters['GNOME']:
+        subprocess.Popen("DISPLAY=:0 GSETTINGS_BACKEND=dconf /usr/bin/gsettings \
+        set org.gnome.desktop.background picture-uri file://{}"
+        .format(template_call.format(index)), shell=True)
+    else:
+        print(USER_DEFINED_SETTER + ' is not supported yet. Sorry!')
+        sys.exit(1)
+    current_time = getTime()
+    while index == getIndex(current_time):
+        time.sleep(60)
+        current_time = current_time + 1/60.0
+    index = getIndex(current_time)
