@@ -27,7 +27,7 @@ How to use:
 2. Enable free api features at geonames at http://www.geonames.org/enablefreewebservice.
 3. Clone the repo.
 4. Run the following command
-    ```Python
+    ```sh
     # Move to the directory first
     python dynamic_wallpapers.py -setup
     ```
@@ -35,6 +35,6 @@ How to use:
 6. Download the wallpapers at: https://files.rb.gd/mojave_dynamic.zip
 7. Extract the zip to ~/DynamicPaper/mojave/ 
 6. Run using:  
-    ```python
+    ```sh
     python dynamic_wallpapers.py
     ```
