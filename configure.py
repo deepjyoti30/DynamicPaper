@@ -69,3 +69,12 @@ def get(keyword):
                 return line[posEqual + 1:]
     else:
         return False
+
+def setup():
+    # This should run when the user runs python dynamicpaper -setup
+
+    if not isPresent():
+        # If its not already present, abort execution and ask the user to update the config
+        copyConfig()
+        print('Please update the config in ' + PATHS.CONFIG_PATH)
+        sys.exit(1)

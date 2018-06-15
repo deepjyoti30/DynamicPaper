@@ -24,7 +24,7 @@ Current Issue(s):
 How to use:
 
 1. Make an account at http://www.geonames.org/login  
-2. Enable free api features at geonames.
+2. Enable free api features at geonames at http://www.geonames.org/enablefreewebservice.
 3. Clone the repo.
 4. Run the following command
     ```Python

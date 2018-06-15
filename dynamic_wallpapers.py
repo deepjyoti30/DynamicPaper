@@ -11,17 +11,11 @@ import time
 import sys
 import configure
 
-#------------------setup config file ----------
-
-def setup():
-    # This should run when the user runs python dynamicpaper -setup
-
-    if not configure.isPresent():
-        # If its not already present, abort execution and ask the user to update the config
-        configure.copyConfig()
-        print('Please update the config in ' + configure.PATHS.CONFIG_PATH)
-        sys.exit(1)
-#----------------------------------------------
+#------------define geonames errors--------------
+SERVICE_NOT_ENABLED = 'user account not enabled to use the free webservice. Please enable it on your account page: http://www.geonames.org/manageaccount '
+INVALID_USER = 'invalid user'
+ACCOUNT_NOT_CONFIRMED = 'user account has not been confirmed. Check your email for the confirmation email.'
+#------------------------------------------------
 
 # Check if -setup was passed
 
@@ -30,7 +24,7 @@ if len(sys.argv) == 2:
         print('Unknown arguement\a')
         sys.exit(1)
     elif sys.argv[1] == '-setup':
-        setup()
+        configure.setup()
     else:
         # Continue exec
         pass
@@ -59,6 +53,21 @@ def getAll():
 
         time_url = "http://api.geonames.org/timezoneJSON?formatted=true&lat={}&lng={}&username={}".format(lat,lon,username)
         time_info  = requests.get(time_url).json() ## Make a request
+
+        # Check for errors
+        try:
+            report = time_info['status']
+            if report['message'] == INVALID_USER:
+                print('Your account was not found in geonames. Please check your username in the config file\a')
+                sys.exit(1)
+            elif report['message'] == SERVICE_NOT_ENABLED:
+                print('Please go to http://www.geonames.org/enablefreewebservice to enable the free webservice\a')
+                sys.exit(1)
+            elif report['message'] == ACCOUNT_NOT_CONFIRMED:
+                print('Your account was not confirmed. Check your email and follow the instructions in the github page\a')
+                sys.exit(1)
+        except:
+            pass
         dawn_time = time_info["sunrise"].split(" ")[1].split(":")
         dawn_time = int(dawn_time[0]) + int(dawn_time[1])/60.0
         dusk_time = time_info["sunset"].split(" ")[1].split(":")
@@ -98,21 +107,23 @@ def getIndex(current_time):
 
 index = getIndex(current_time)
 
-
-while True:
-    if USER_DEFINED_SETTER == wallSetters['nitrogen']:
-        # Exec nitrogen to set the wallpaper
-        wall = template_call.format(index)
-        proc = subprocess.call(['nitrogen', '--set-auto', wall])
-    elif USER_DEFINED_SETTER == wallSetters['GNOME']:
-        subprocess.Popen("DISPLAY=:0 GSETTINGS_BACKEND=dconf /usr/bin/gsettings \
-        set org.gnome.desktop.background picture-uri file://{}"
-        .format(template_call.format(index)), shell=True)
-    else:
-        print(USER_DEFINED_SETTER + ' is not supported yet. Sorry!')
-        sys.exit(1)
-    current_time = getTime()
-    while index == getIndex(current_time):
-        time.sleep(60)
-        current_time = current_time + 1/60.0
-    index = getIndex(current_time)
+def main():
+    while True:
+        if USER_DEFINED_SETTER == wallSetters['nitrogen']:
+            # Exec nitrogen to set the wallpaper
+            wall = template_call.format(index)
+            proc = subprocess.call(['nitrogen', '--set-auto', wall])
+        elif USER_DEFINED_SETTER == wallSetters['GNOME']:
+            subprocess.Popen("DISPLAY=:0 GSETTINGS_BACKEND=dconf /usr/bin/gsettings \
+            set org.gnome.desktop.background picture-uri file://{}"
+            .format(template_call.format(index)), shell=True)
+        else:
+            print(USER_DEFINED_SETTER + ' is not supported yet. Sorry!')
+            sys.exit(1)
+        current_time = getTime()
+        while index == getIndex(current_time):
+            time.sleep(60)
+            current_time = current_time + 1/60.0
+        index = getIndex(current_time)
+    
+main()
