@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 import shutil
 
+
 class PATHS:
     # The home dir
     HOME_DIR = str(Path.home())
@@ -16,9 +17,10 @@ class PATHS:
     # The config path
     CONFIG_PATH = os.path.join(CONFIG_FILE_DIR, 'config')
 
+
 def isPresent():
     # Check if the config file is already present in the dir
-    
+
     # Need to check if dynamicwall is present
     folders = os.listdir(PATHS.CONFIG_DIR)
 
@@ -27,11 +29,8 @@ def isPresent():
         os.mkdir(PATHS.CONFIG_FILE_DIR)
         return False
 
-    for file in os.listdir(PATHS.CONFIG_FILE_DIR):
-        if file == 'config':
-            return True
+    return 'config' in set(os.listdir(PATHS.CONFIG_FILE_DIR))
 
-    return False
 
 def copyConfig():
     # Copy the config file from the current directory
@@ -42,6 +41,7 @@ def copyConfig():
         return True
     except:
         return False
+
 
 def get(keyword):
     # Get the keyword defined in config file
@@ -56,19 +56,20 @@ def get(keyword):
 
             if not line:
                 return False
-            
+
             if keyword in line and '#' not in line:
                 # remove the spaces
                 line = line.replace(' ', '')
                 posEqual = line.index('=')
-                
+
                 # Check if \n is present at the end
                 if "\n" == line[len(line) - 1]:
                     line = line[:-1]
-                
+
                 return line[posEqual + 1:]
     else:
         return False
+
 
 def setup():
     # This should run when the user runs python dynamicpaper -setup
