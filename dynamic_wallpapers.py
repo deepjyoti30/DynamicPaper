@@ -7,6 +7,7 @@ import threading
 import time
 import sys
 import configure
+from envinment_calls import set_wallpaper
 
 template_call = "$HOME/DynamicPaper/mojave/mojave_dynamic_{}.jpeg"
 
@@ -91,13 +92,6 @@ if __name__ == '__main__':
             # Continue exec
             pass
 
-    # --------------wall setter---------------------
-
-    wallSetters = {
-        'nitrogen': 'nitrogen',
-        'GNOME': 'GNOME',
-    }
-
     # Get the wallpaper setter defined by the user in config
 
     USER_DEFINED_SETTER = configure.get('PAPER_SETTER')
@@ -117,18 +111,9 @@ if __name__ == '__main__':
     index = getIndex(current_time)
     while True:
         wall = template_call.format(index)
-        if USER_DEFINED_SETTER == wallSetters['nitrogen']:
-                # Exec nitrogen to set the wallpaper
-            subprocess.Popen(
-                "nitrogen --set-auto {}".format(wall), shell=True)
-        elif USER_DEFINED_SETTER == wallSetters['GNOME']:
-            subprocess.Popen("DISPLAY=:0 GSETTINGS_BACKEND=dconf /usr/bin/gsettings set org.gnome.desktop.background picture-uri file://{}"
-                             .format(wall), shell=True)
-        else:
-            print(USER_DEFINED_SETTER + ' is not supported yet. Sorry!')
-            sys.exit(1)
+        set_wallpaper(USER_DEFINED_SETTER, wall)
         current_time = getTime()
-        while index == getIndex(current_time):
-            time.sleep(60)
-            current_time = current_time + 1/60.0
-        index = getIndex(current_time)
+    while index == getIndex(current_time):
+        time.sleep(60)
+        current_time = current_time + 1/60.0
+    index = getIndex(current_time)
