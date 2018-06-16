@@ -32,7 +32,7 @@ How to use:
     python dynamic_wallpapers.py -setup
     ```
 5. Add username and paper setter in config file.
-6. Download the wallpapers at: https://files.rb.gd/mojave_dynamic.zip
+6. Download the wallpapers at: https://files.rb.gd/mojave_dynamic.zip | https://mega.nz/#!HeZ2CLiQ
 7. Extract the zip to ~/DynamicPaper/mojave/ 
 6. Run using:  
     ```sh
