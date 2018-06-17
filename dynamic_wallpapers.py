@@ -41,11 +41,17 @@ def checkTimeInfo(time_info):
 #Getting Coordinates
 def getCoordinates():
     try:
-        send_url = 'http://ip-api.com/json'
-        r = requests.get(send_url)
-        j = json.loads(r.text)
-        lat = j['latitude']
-        lon = j['longitude']
+        j = requests.get(LOCATION_BY_IP).json()
+        input(j)
+        lat = j['lat']
+        lon = j['lon']
+    except TimeoutError:
+        print('Timeout was reached.\a Please check if your connected to internet.')
+        exit(-1)
+    except KeyError:
+        print("Unknown error, please write an issue to inform us.")
+        exit(-1)
+    return (lat,lon)
 
         time_url = "http://api.geonames.org/timezoneJSON?formatted=true&lat={}&lng={}&username={}".format(
             lat, lon, username)
