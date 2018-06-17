@@ -31,9 +31,10 @@ TIME_BY_LOCATION = 'http://api.geonames.org/timezoneJSON?formatted=true&lat={}&l
 
 def getCoordinates():
     try:
-        j = requests.get().json()
-        lat = j['latitude']
-        lon = j['longitude']
+        j = requests.get(LOCATION_BY_IP).json()
+        input(j)
+        lat = j['lat']
+        lon = j['lon']
     except TimeoutError:
         print('Timeout was reached.\a Please check if your connected to internet.')
         exit(-1)
