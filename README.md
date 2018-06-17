@@ -41,4 +41,4 @@ How to use:
 1. If you still want to use it, you can by installing <a href="https://github.com/l3ib/nitrogen">nitrogen</a> and then following the above steps.
 
 2. In case you want to download the wallpapers manually, then download them to some directory and update WALL_DIR in the config file.
-These are some places you can get the wallpapers from : https://files.rb.gd/mojave_dynamic.zip | https://mega.nz/#!HeZ2CLiQ
+These are some places you can get the wallpapers from : https://files.rb.gd/mojave_dynamic.zip | https://mega.nz/#!HeZ2CLiQ | https://drive.google.com/open?id=1UCR5ikwGQh3rLbPbxc4r1xTaiIbGG1Lf
