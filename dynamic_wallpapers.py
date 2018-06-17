@@ -10,49 +10,64 @@ import configure
 from envinment_calls import set_wallpaper
 
 # ------------define geonames errors--------------
+
 SERVICE_NOT_ENABLED = 'user account not enabled to use the free webservice. Please enable it on your account page: http://www.geonames.org/manageaccount '
 INVALID_USER = 'invalid user'
+USER_NOT_EXIST= 'user does not exist.'
 ACCOUNT_NOT_CONFIRMED = 'user account has not been confirmed. Check your email for the confirmation email.'
+
+GEONAME_ERRORS = {
+    INVALID_USER: 'Your account was not found in geonames. Please check your username in the config file\a',
+    SERVICE_NOT_ENABLED: 'Please go to http://www.geonames.org/enablefreewebservice to enable the free webservice\a',
+    USER_NOT_EXIST: 'Your account was not found in geonames. Please check your username in the config file\a',
+    ACCOUNT_NOT_CONFIRMED:'Your account was not confirmed. Check your email and follow the instructions in the github page\a',
+}
+
 # ------------------------------------------------
 
+#URL Consts
+LOCATION_BY_IP = 'http://freegeoip.net/json'
+TIME_BY_LOCATION = 'http://api.geonames.org/timezoneJSON?formatted=true&lat={}&lng={}&username={}'
+
+
+def getCoordinates():
+    try:
+        j = requests.get(LOCATION_BY_IP).json()
+        lat = j['latitude']
+        lon = j['longitude']
+    except TimeoutError:
+        print('Timeout was reached.\a Please check if your connected to internet.')
+        exit(-1)
+    except KeyError:
+        print("Unknown error, please write an issue to inform us.")
+        exit(-1)
+    return (lat,lon)
 
 def getTime(): return getAll()["time"]
 
-
 def getAll():
-    try:
-        send_url = 'http://freegeoip.net/json'
-        r = requests.get(send_url)
-        j = json.loads(r.text)
-        lat = j['latitude']
-        lon = j['longitude']
-
-        time_url = "http://api.geonames.org/timezoneJSON?formatted=true&lat={}&lng={}&username={}".format(
-            lat, lon, username)
-
-        try:
-            time_info = requests.get(time_url).json()  # Make a request
-        except TimeoutError:
-            print('Timeout was reached.\a Please check if your connected to internet.')
-            sys.exit(1)
-        
+    lat, lon = getCoordinates()
+    time_url = TIME_BY_LOCATION.format(lat, lon, username)
+    try :
+        time_info = requests.get(time_url).json()  # Make a request
         # Check for errors
-        try:
+        if 'status' in time_info:
             report = time_info['status']
-            if report['message'] == INVALID_USER:
-                print(
-                    'Your account was not found in geonames. Please check your username in the config file\a')
-                sys.exit(1)
-            elif report['message'] == SERVICE_NOT_ENABLED:
-                print(
-                    'Please go to http://www.geonames.org/enablefreewebservice to enable the free webservice\a')
-                sys.exit(1)
-            elif report['message'] == ACCOUNT_NOT_CONFIRMED:
-                print(
-                    'Your account was not confirmed. Check your email and follow the instructions in the github page\a')
-                sys.exit(1)
-        except:
-            pass
+            if report['message'] in GEONAME_ERRORS:
+                print(GEONAME_ERRORS[report['message']])
+            else:
+                print("Unexpected Error, please issue an error at the public repository with the received message.")
+            exit(-1)
+        else:
+            for key in {'sunrise','sunset','time'}:
+                if key not in time_info:
+                    print("Unexpected Error, please issue an error at the public repository with the received message.")
+                    print("_______________________________________")
+                    print(time_info)
+                    print("_______________________________________")
+                    print("Key: {} not found.".format(key))
+                    exit(-1)
+        
         dawn_time = time_info["sunrise"].split(" ")[1].split(":")
         dawn_time = int(dawn_time[0]) + int(dawn_time[1])/60.0
         dusk_time = time_info["sunset"].split(" ")[1].split(":")
@@ -62,9 +77,13 @@ def getAll():
         current_time = int(current_time[0]) + int(current_time[1])/60.0
         return {"dawn": dawn_time, "dusk": dusk_time, "time": current_time}
 
-    except:
-        time.sleep(60)
-        return getAll()
+    except TimeoutError:
+        print('Timeout was reached.\a Please check if your connected to internet.')
+        exit(-1)
+    except KeyError:
+        print("Unknown error, please write an issue to inform us.")
+        exit(-1)
+    
 
 
 def getIndex(current_time):
