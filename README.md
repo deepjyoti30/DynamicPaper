@@ -38,3 +38,6 @@ How to use:
     ```sh
     python dynamic_wallpapers.py
     ```
+## Pro Tip
+
+If you still want to use it, you can by installing <a href="https://github.com/l3ib/nitrogen">nitrogen</a> and then following the above steps.
