@@ -41,23 +41,21 @@ def checkTimeInfo(time_info):
 #Getting Coordinates
 def getCoordinates():
     try:
-        j = requests.get(LOCATION_BY_IP).json()
-        lat = j['lat']
-        lon = j['lon']
-    except TimeoutError:
-        print('Timeout was reached.\a Please check if your connected to internet.')
-        exit(-1)
-    except KeyError:
-        print("Unknown error, please write an issue to inform us.")
-        exit(-1)
-    return (lat,lon)
+        send_url = 'http://ip-api.com/json'
+        r = requests.get(send_url)
+        j = json.loads(r.text)
+        lat = j['latitude']
+        lon = j['longitude']
 
-def getTime(lat,lon): return getAll(lat,lon)["time"]
+        time_url = "http://api.geonames.org/timezoneJSON?formatted=true&lat={}&lng={}&username={}".format(
+            lat, lon, username)
 
-def getAll(lat, lon):
-    time_url = TIME_BY_LOCATION.format(lat, lon, username)
-    try :
-        time_info = requests.get(time_url).json()  # Make a request
+        try:
+            time_info = requests.get(time_url).json()  # Make a request
+        except TimeoutError:
+            print('Timeout was reached.\a Please check if your connected to internet.')
+            sys.exit(1)
+        
         # Check for errors
         if 'status' in time_info:
             report = time_info['status']
