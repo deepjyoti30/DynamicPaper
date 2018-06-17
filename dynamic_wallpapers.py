@@ -31,15 +31,8 @@ def getAll():
 
         time_url = "http://api.geonames.org/timezoneJSON?formatted=true&lat={}&lng={}&username={}".format(
             lat, lon, username)
-        try:
-            time_info = requests.get(time_url).json()  # Make a request
-        except TimeoutError:
-            print('Seems like you are not connected to internet.\a')
-            print('Aborting!\a')
-            sys.exit(1)
-        else:
-            print('Some error occured while making the request')
-            sys.exit(1)
+
+        time_info = requests.get(time_url).json()  # Make a request
 
         # Check for errors
         try:
@@ -121,7 +114,7 @@ if __name__ == '__main__':
         wall = template_call.format(index)
         set_wallpaper(USER_DEFINED_SETTER, wall)
         current_time = getTime()
-    while index == getIndex(current_time):
-        time.sleep(60)
-        current_time = current_time + 1/60.0
-    index = getIndex(current_time)
+        while index == getIndex(current_time):
+            time.sleep(60)
+            current_time = current_time + 1/60.0
+        index = getIndex(current_time)
