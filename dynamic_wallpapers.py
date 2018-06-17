@@ -9,8 +9,6 @@ import sys
 import configure
 from envinment_calls import set_wallpaper
 
-template_call = "$HOME/DynamicPaper/mojave/mojave_dynamic_{}.jpeg"
-
 # ------------define geonames errors--------------
 SERVICE_NOT_ENABLED = 'user account not enabled to use the free webservice. Please enable it on your account page: http://www.geonames.org/manageaccount '
 INVALID_USER = 'invalid user'
@@ -115,7 +113,7 @@ if __name__ == '__main__':
 
     index = getIndex(current_time)
     while True:
-        wall = template_call.format(index)
+        wall = configure.template().format(index)
         set_wallpaper(USER_DEFINED_SETTER, wall)
         current_time = getTime()
         while index == getIndex(current_time):
