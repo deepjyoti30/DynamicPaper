@@ -3,7 +3,6 @@
 import requests
 import json
 import subprocess
-import threading
 import time
 import sys
 import configure
@@ -21,7 +20,7 @@ def getTime(): return getAll()["time"]
 
 def getAll():
     try:
-        send_url = 'http://freegeoip.net/json'
+        send_url = 'http://ip-api.com/json'
         r = requests.get(send_url)
         j = json.loads(r.text)
         lat = j['latitude']
