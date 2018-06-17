@@ -32,8 +32,12 @@ def getAll():
         time_url = "http://api.geonames.org/timezoneJSON?formatted=true&lat={}&lng={}&username={}".format(
             lat, lon, username)
 
-        time_info = requests.get(time_url).json()  # Make a request
-
+        try:
+            time_info = requests.get(time_url).json()  # Make a request
+        except TimeoutError:
+            print('Timeout was reached.\a Please check if your connected to internet.')
+            sys.exit(1)
+        
         # Check for errors
         try:
             report = time_info['status']
