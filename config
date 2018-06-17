@@ -14,3 +14,8 @@ PAPER_SETTER = nitrogen
 # ** DON'T FORGET TO ENABLE FREE API FEATURES **
 #
 USERNAME = put_username_here
+#
+# WALL_DIR is the directory from the wallpapers are fetched.
+# Dont edit the path unless you know what you are doing.
+#
+WALL_DIR = $HOME/.config/dynamicpaper/mojave
