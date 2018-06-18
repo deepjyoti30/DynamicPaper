@@ -20,6 +20,9 @@ USERNAME = put_username_here
 #
 WALL_DIR = $HOME/.config/dynamicpaper/mojave
 #
+# Filetype denotes the extension of the files, ie png, jpg. etc.
+#
+EXTENSION = jpeg
 # LOCATION will be used to get longitude and latitude
 # If its not defined your IP will be used to get the same.
 # This is ideal in case of using a VPN
@@ -31,7 +34,4 @@ WALL_DIR = $HOME/.config/dynamicpaper/mojave
 # 
 #LOCATION = null
 # 
-# Filetype denotes the extension of the files, ie png, jpg. etc.
-#
-EXTENSION = jpeg
 

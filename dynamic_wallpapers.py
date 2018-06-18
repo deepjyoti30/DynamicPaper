@@ -42,21 +42,10 @@ def checkTimeInfo(time_info):
                     print("Key: {} not found.".format(key))
                     exit(-1)
 
-        
-def getTime(): return getAll()["time"]
-    for key in {'sunrise', 'sunset', 'time'}:
-        if key not in time_info:
-            print(
-                "Unexpected Error, please issue an error at the public repository with the received message.")
-            print("_______________________________________")
-            print(time_info)
-            print("_______________________________________")
-            print("Key: {} not found.".format(key))
-            exit(-1)
 # Getting Coordinates
 
 
-def getTime(lat, lon): return getAll(lat, lon)["time"]
+def getTime(): return getAll()["time"]
 
 
 def getAll():
@@ -132,8 +121,6 @@ if __name__ == '__main__':
     lat,lon = coordinates.get()
     time_nfo = getAll()
 
-    lat, lon = getCoordinates()
-    time_nfo = getAll(lat, lon)
     dusk_time = time_nfo["dusk"]
     dawn_time = time_nfo["dawn"]
     current_time = time_nfo["time"]
@@ -147,7 +134,6 @@ if __name__ == '__main__':
         set_wallpaper(USER_DEFINED_SETTER, wall)
 
         current_time = getTime()
-        current_time = getTime(lat, lon)
         while index == getIndex(current_time):
             # Sleep for 5 minutes
             time.sleep(60*5)

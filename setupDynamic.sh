@@ -15,7 +15,7 @@ echo "Creating config folder at $HOME/.config/dynamicpaper/"
 mkdir -p $HOME/.config/dynamicpaper
 
 # Extract there and delete the zip
-echo "Exracting Wallpaper files."
+echo "Extracting Wallpaper files."
 unzip -qqo temp.zip -d $HOME/.config/dynamicpaper/mojave
 
 echo "Copied configuration file."
