@@ -4,8 +4,6 @@
 
 ## The project is currently WIP.
 
-## Currently Works with nitrogen and on Gnome
-
 Progress:
 
 - [x] Write initial program that does the job using Mojave's wallpapers.
