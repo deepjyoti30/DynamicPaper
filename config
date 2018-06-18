@@ -33,5 +33,5 @@ WALL_DIR = $HOME/.config/dynamicpaper/mojave
 # 
 # Filetype denotes the extension of the files, ie png, jpg. etc.
 #
-EXTENSION = png
+EXTENSION = jpeg
 
