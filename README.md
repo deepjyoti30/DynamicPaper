@@ -16,7 +16,7 @@ Progress:
 - [ ] Replace geolocation api.
 
 Current Issue(s):
-- Uses IP to find time and geolocation.
+- ~~Uses IP to find time and geolocation.~~ User can specify location in config. By default IP is used.
 - Currently works only in Gnome derivatives and with Nitrogen.
 - Uses GeoNames api, requires account but is free.
 
@@ -38,7 +38,9 @@ How to use:
     ```
 ## Pro Tip
 
-1. If you still want to use it, you can by installing <a href="https://github.com/l3ib/nitrogen">nitrogen</a> and then following the above steps.
+1. In case you are using a VPN or don't want to use IP, add your location in the config file.
 
-2. In case you want to download the wallpapers manually, then download them to some directory and update WALL_DIR in the config file.
+2. If you still want to use it, you can by installing <a href="https://github.com/l3ib/nitrogen">nitrogen</a> and then following the above steps.
+
+3. In case you want to download the wallpapers manually, then download them to some directory and update WALL_DIR in the config file.
 These are some places you can get the wallpapers from : https://files.rb.gd/mojave_dynamic.zip | https://drive.google.com/open?id=1UCR5ikwGQh3rLbPbxc4r1xTaiIbGG1Lf
