@@ -46,7 +46,7 @@ Current Issue(s):
     ```
 ## Pro Tip
 
-1. In case you are using a VPN or don't want to use IP, add your location in the config file.
+1. In case you don't want to use IP, add your location in the config file.
 
 2. If you still want to use it, you can by installing <a href="https://github.com/l3ib/nitrogen">nitrogen</a> and then following the above steps.
 
