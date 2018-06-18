@@ -7,6 +7,7 @@ import time
 import sys
 import configure
 from envinment_calls import set_wallpaper
+import coordinates
 
 # ------------define geonames errors--------------
 
@@ -25,27 +26,12 @@ GEONAME_ERRORS = {
 # ------------------------------------------------
 
 #URL Consts
-LOCATION_BY_IP = 'http://ip-api.com/json'
 TIME_BY_LOCATION = 'http://api.geonames.org/timezoneJSON?formatted=true&lat={}&lng={}&username={}'
-
-
-def getCoordinates():
-    try:
-        j = requests.get(LOCATION_BY_IP).json()
-        lat = j['lat']
-        lon = j['lon']
-    except TimeoutError:
-        print('Timeout was reached.\a Please check if your connected to internet.')
-        exit(-1)
-    except KeyError:
-        print("Unknown error, please write an issue to inform us.")
-        exit(-1)
-    return (lat,lon)
 
 def getTime(): return getAll()["time"]
 
 def getAll():
-    lat, lon = getCoordinates()
+    lat, lon = coordinates.get()
     time_url = TIME_BY_LOCATION.format(lat, lon, username)
     try :
         time_info = requests.get(time_url).json()  # Make a request

@@ -19,3 +19,15 @@ USERNAME = put_username_here
 # Dont edit the path unless you know what you are doing.
 #
 WALL_DIR = $HOME/.config/dynamicpaper/mojave
+#
+# LOCATION will be used to get longitude and latitude
+# If its not defined your IP will be used to get the same.
+# This is ideal in case of using a VPN
+# By default it will be commented out, 
+# in case you want to use it, please try to be very specific
+# about the location. 
+# For eg: For city 'Pune' in the state 'Maharastra' in the country 'India'
+# use Pune,Maharastra,India
+# 
+#LOCATION = null
+# 
