@@ -17,11 +17,21 @@ Progress:
 
 Current Issue(s):
 - ~~Uses IP to find time and geolocation.~~ User can specify location in config. By default IP is used.
-- Currently works only in Gnome derivatives and with Nitrogen.
 - Uses GeoNames api, requires account but is free.
 
+## Supports
 
-How to use:
+### Wallpaper setter
+
+1. nitrogen
+2. feh
+
+### Environment
+
+1. Gnome
+2. Any other with nitrogen or feh
+
+## How to use:
 
 1. Make an account at http://www.geonames.org/login  
 2. Enable free api features at geonames at http://www.geonames.org/enablefreewebservice.
