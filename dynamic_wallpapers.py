@@ -38,28 +38,7 @@ def checkTimeInfo(time_info):
                     print("_______________________________________")
                     print("Key: {} not found.".format(key))
                     exit(-1)
-#Getting Coordinates
-def getCoordinates():
-    try:
-        j = requests.get(LOCATION_BY_IP).json()
-        lat = j['lat']
-        lon = j['lon']
-    except TimeoutError:
-        print('Timeout was reached.\a Please check if your connected to internet.')
-        exit(-1)
-    except KeyError:
-        print("Unknown error, please write an issue to inform us.")
-        exit(-1)
-    return (lat,lon)
 
-        time_url = "http://api.geonames.org/timezoneJSON?formatted=true&lat={}&lng={}&username={}".format(
-            lat, lon, username)
-
-        try:
-            time_info = requests.get(time_url).json()  # Make a request
-        except TimeoutError:
-            print('Timeout was reached.\a Please check if your connected to internet.')
-            sys.exit(1)
         
 def getTime(): return getAll()["time"]
 
@@ -133,8 +112,8 @@ if __name__ == '__main__':
 
     order = [i for i in range(1, 17)]
     
-    lat,lon = getCoordinates()
-    time_nfo = getAll(lat, lon)
+    lat,lon = coordinates.get()
+    time_nfo = getAll()
     dusk_time = time_nfo["dusk"]
     dawn_time = time_nfo["dawn"]
     current_time = time_nfo["time"]
@@ -146,7 +125,7 @@ if __name__ == '__main__':
     while True:
         wall = configure.template().format(index)
         set_wallpaper(USER_DEFINED_SETTER, wall)
-        current_time = getTime(lat,lon)
+        current_time = getTime()
         while index == getIndex(current_time):
             #Sleep for 5 minutes
             time.sleep(60*5)
