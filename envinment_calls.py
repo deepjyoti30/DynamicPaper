@@ -7,7 +7,8 @@ To add your environment, simply add the identifier you want to use and the desir
 
 PROCESS_CALLS = {
     'GNOME': "DISPLAY=:0 GSETTINGS_BACKEND=dconf /usr/bin/gsettings set org.gnome.desktop.background picture-uri file://{}",
-    'nitrogen': "nitrogen --set-auto {}"
+    'nitrogen': "nitrogen --set-auto {}",
+    'feh': "feh --bg-scale {}"
 }
 
 
