@@ -28,7 +28,6 @@ GEONAME_ERRORS = {
 #URL Consts
 TIME_BY_LOCATION = 'http://api.geonames.org/timezoneJSON?formatted=true&lat={}&lng={}&username={}'
 
-<<<<<<< HEAD
 #Sanity Checking
 def checkTimeInfo(time_info):
     for key in {'sunrise','sunset','time'}:
@@ -62,7 +61,6 @@ def getCoordinates():
             print('Timeout was reached.\a Please check if your connected to internet.')
             sys.exit(1)
         
-=======
 def getTime(): return getAll()["time"]
 
 def getAll():
@@ -70,7 +68,6 @@ def getAll():
     time_url = TIME_BY_LOCATION.format(lat, lon, username)
     try :
         time_info = requests.get(time_url).json()  # Make a request
->>>>>>> location support added
         # Check for errors
         if 'status' in time_info:
             report = time_info['status']
