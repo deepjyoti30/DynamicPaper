@@ -3,7 +3,6 @@
 import requests
 import json
 import subprocess
-import threading
 import time
 import sys
 import configure
@@ -26,7 +25,7 @@ GEONAME_ERRORS = {
 # ------------------------------------------------
 
 #URL Consts
-LOCATION_BY_IP = 'http://freegeoip.net/json'
+LOCATION_BY_IP = 'http://ip-api.com/json'
 TIME_BY_LOCATION = 'http://api.geonames.org/timezoneJSON?formatted=true&lat={}&lng={}&username={}'
 
 #Sanity Checking
@@ -43,8 +42,8 @@ def checkTimeInfo(time_info):
 def getCoordinates():
     try:
         j = requests.get(LOCATION_BY_IP).json()
-        lat = j['latitude']
-        lon = j['longitude']
+        lat = j['lat']
+        lon = j['lon']
     except TimeoutError:
         print('Timeout was reached.\a Please check if your connected to internet.')
         exit(-1)
