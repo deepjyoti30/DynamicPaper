@@ -71,22 +71,17 @@ def get(keyword):
     else:
         return False
 
+
 def template():
     # Get the dir of the wallpaper.
 
     template = get('WALL_DIR')
 
-    template_path = os.path.join(template, 'mojave_dynamic_{}.jpeg')
+    template_path = os.path.join(
+        template, 'mojave_dynamic_{1}.{0}'.format(get("EXTENSION"), "{}"))
 
     return template_path
 
 
 def setup():
-    # This should run when the user runs python dynamicpaper -setup
-
-    if not isPresent():
-        # Download the wallpapers
-        rc = subprocess.call(['sh', 'setupDynamic.sh'])
-        # If its not already present, abort execution and ask the user to update the config
-        copyConfig()
-        print('Please update the config in ' + PATHS.CONFIG_PATH)
+    subprocess.call(['sh', 'setupDynamic.sh'])
