@@ -29,7 +29,17 @@ GEONAME_ERRORS = {
 LOCATION_BY_IP = 'http://freegeoip.net/json'
 TIME_BY_LOCATION = 'http://api.geonames.org/timezoneJSON?formatted=true&lat={}&lng={}&username={}'
 
-
+#Sanity Checking
+def checkTimeInfo(time_info):
+    for key in {'sunrise','sunset','time'}:
+                if key not in time_info:
+                    print("Unexpected Error, please issue an error at the public repository with the received message.")
+                    print("_______________________________________")
+                    print(time_info)
+                    print("_______________________________________")
+                    print("Key: {} not found.".format(key))
+                    exit(-1)
+#Getting Coordinates
 def getCoordinates():
     try:
         j = requests.get(LOCATION_BY_IP).json()
@@ -43,10 +53,9 @@ def getCoordinates():
         exit(-1)
     return (lat,lon)
 
-def getTime(): return getAll()["time"]
+def getTime(lat,lon): return getAll(lat,lon)["time"]
 
-def getAll():
-    lat, lon = getCoordinates()
+def getAll(lat, lon):
     time_url = TIME_BY_LOCATION.format(lat, lon, username)
     try :
         time_info = requests.get(time_url).json()  # Make a request
@@ -59,14 +68,7 @@ def getAll():
                 print("Unexpected Error, please issue an error at the public repository with the received message.")
             exit(-1)
         else:
-            for key in {'sunrise','sunset','time'}:
-                if key not in time_info:
-                    print("Unexpected Error, please issue an error at the public repository with the received message.")
-                    print("_______________________________________")
-                    print(time_info)
-                    print("_______________________________________")
-                    print("Key: {} not found.".format(key))
-                    exit(-1)
+            checkTimeInfo(time_info)
         
         dawn_time = time_info["sunrise"].split(" ")[1].split(":")
         dawn_time = int(dawn_time[0]) + int(dawn_time[1])/60.0
@@ -121,8 +123,9 @@ if __name__ == '__main__':
     username = configure.get('USERNAME')
 
     order = [i for i in range(1, 17)]
-
-    time_nfo = getAll()
+    
+    lat,lon = getCoordinates()
+    time_nfo = getAll(lat, lon)
     dusk_time = time_nfo["dusk"]
     dawn_time = time_nfo["dawn"]
     current_time = time_nfo["time"]
@@ -134,8 +137,10 @@ if __name__ == '__main__':
     while True:
         wall = configure.template().format(index)
         set_wallpaper(USER_DEFINED_SETTER, wall)
-        current_time = getTime()
+        current_time = getTime(lat,lon)
         while index == getIndex(current_time):
-            time.sleep(60)
-            current_time = current_time + 1/60.0
+            #Sleep for 5 minutes
+            time.sleep(60*5)
+            #Add 5 minutes
+            current_time = current_time + 5/60.0
         index = getIndex(current_time)
