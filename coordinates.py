@@ -12,7 +12,7 @@ COORDINATES_BY_LOCATION = 'http://open.mapquestapi.com/geocoding/v1/address?key=
 def get():
     # Check how to get the lat and long
     location = configure.get('LOCATION')
-    if not location:
+    if not location or location == 'null':
         try:
             j = requests.get(COORDINATES_BY_IP).json()
             lat = j['lat']
