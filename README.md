@@ -26,12 +26,15 @@ How to use:
 1. Make an account at http://www.geonames.org/login  
 2. Enable free api features at geonames at http://www.geonames.org/enablefreewebservice.
 3. Clone the repo.
-4. Run the following command
+4. Add username, environment in config file.
+5. Run ___One(1)___ of the two:
     ```sh
-    # Move to the directory first
     python dynamic_wallpapers.py -setup
     ```
-5. Add username and paper setter in config file.
+    Or
+    ```sh
+    sh ./setupDynamic.sh
+    ```
 6. Run using:  
     ```sh
     python dynamic_wallpapers.py

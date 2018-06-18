@@ -7,7 +7,7 @@
 # PAPER_SETTER is the tool that you use to set Wallpapers
 # Currently supports nitrogen and GNOME
 # Change accordingly
-PAPER_SETTER = nitrogen
+PAPER_SETTER = GNOME
 #
 # USERNAME is the username of your geoname account.
 # For more info on it check the github repo
@@ -19,3 +19,7 @@ USERNAME = put_username_here
 # Dont edit the path unless you know what you are doing.
 #
 WALL_DIR = $HOME/.config/dynamicpaper/mojave
+#
+# Filetype denotes the extension of the files, ie png, jpg. etc.
+#
+EXTENSION = png
